@@ -1,0 +1,10 @@
+{
+  "extends": "@packages/typescript-config/vite.json",
+  "include": ["src", "@packages/shared"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

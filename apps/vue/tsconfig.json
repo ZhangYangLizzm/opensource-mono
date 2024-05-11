@@ -1,0 +1,14 @@
+{
+  "extends": "@packages/typescript-config/vite.json",
+  "include": [
+    "src",
+    "auto-imports.d.ts",
+    "components.d.ts",
+    "@packages/shared"
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
