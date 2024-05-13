@@ -1,5 +1,7 @@
 import { useLocale } from "@/hooks/useLocale";
-import { LangKey } from "@/locales/i18n";
+
+import { LangKey } from "@packages/shared";
+
 import { GlobalOutlined } from "@ant-design/icons";
 import { Dropdown, Button, MenuProps } from "antd";
 
@@ -9,11 +11,11 @@ export const LocaleDropdown = () => {
   const LangList: MenuProps["items"] = [
     {
       key: "zh-CN",
-      label: <span onClick={() => setLocale(LangKey["zh-CN"])}>简体中文</span>,
+      label: <span onClick={() => setLocale(LangKey["zh"])}>简体中文</span>,
     },
     {
       key: "en-US",
-      label: <span onClick={() => setLocale(LangKey["en-US"])}>English</span>,
+      label: <span onClick={() => setLocale(LangKey["en"])}>English</span>,
     },
   ];
 

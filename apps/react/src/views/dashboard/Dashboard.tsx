@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-
-import HomeCharts from "./HomeCharts";
-import { LineChartKey } from "@/mock/dashboard.mock";
+import { useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import ReactEchart from "echarts-for-react";
+import { OverviewType } from "@/models/overview";
+import { useRequest } from "ahooks";
+import { getOverviewItem } from "@/api/overview";
+import { Spin } from "antd";
 
 interface RowCardItemProps {
   srcPath: string;
-  title: LineChartKey;
+  title: string;
   description: number | string;
-  onClick: (key: LineChartKey) => void;
+  onClick: (key: string) => void;
   className: string;
 }
 const RowCardItem = ({
@@ -37,38 +39,76 @@ const RowCardItem = ({
   );
 };
 
-const Dashboard: React.FC = () => {
-  const defaultLineChartKey = LineChartKey.NewVisits;
+const defaultOptions = {
+  xAxis: {
+    type: "category",
+    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  },
+  yAxis: {
+    type: "value",
+  },
+  series: [
+    {
+      data: [],
+      type: "line",
+    },
+  ],
+};
 
-  const [lineChartKey, setLineChartKey] =
-    useState<LineChartKey>(defaultLineChartKey);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const RowCardItems = useLoaderData() as any[];
-  console.log(RowCardItems)
-
-  const rowCardItemClickHandler = (key: LineChartKey, index: number) => {
-    setLineChartKey(key);
-    setCurrentIndex(index);
+const Dashboard = () => {
+  const loaderData = useLoaderData() as {
+    data: OverviewType[];
   };
 
+  const [currentId, setCurrentId] = useState(() => loaderData.data?.[0].id);
+
+  const { loading, data } = useRequest(() => getOverviewItem(currentId), {
+    refreshDeps: [currentId],
+  });
+
+  const [options, setOptions] = useState(defaultOptions);
+
+  const echartRef = useRef<ReactEchart>(null);
+
+  useEffect(() => {
+    setOptions({
+      ...defaultOptions,
+      series: [
+        {
+          data: data?.data?.data,
+          type: "line",
+        },
+      ],
+    });
+  }, [data]);
+
   return (
-    <div className="flex flex-col h-full ">
-      <div className="flex gap-4 justify-around items-center p-4">
-        {RowCardItems.map(({ srcPath, title, description }, index) => (
+    <div className="flex flex-col h-full space-y-4">
+      <div className="flex gap-4 justify-around items-center p-4 bg-white rounded">
+        {loaderData.data?.map(({ id, name, value }) => (
           <RowCardItem
-            srcPath={srcPath}
-            title={title}
-            description={description}
-            onClick={(key: LineChartKey) => rowCardItemClickHandler(key, index)}
-            key={title}
-            className={`${index === currentIndex ? "shadow-lg" : "shadow"}`}
+            srcPath={name}
+            title="title"
+            description={value}
+            onClick={() => setCurrentId(id)}
+            key={id}
+            className={`${id === currentId ? "shadow-lg" : ""}`}
           />
         ))}
       </div>
-      <div className="flex-grow flex items-center ">
-        <HomeCharts currentLineChartKey={lineChartKey} />
+      <div className="flex-grow flex items-center bg-white p-4 rounded">
+        {loading ? (
+          <Spin spinning={loading} />
+        ) : (
+          <ReactEchart
+            ref={echartRef}
+            option={options}
+            className=" w-full"
+            style={{ height: "400px" }}
+            notMerge={true}
+            lazyUpdate={true}
+          />
+        )}
       </div>
     </div>
   );

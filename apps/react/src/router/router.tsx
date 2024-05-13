@@ -7,8 +7,9 @@ import Login from "@/views/login/Login";
 import { chartExampleRoutes } from "./module/chartExample";
 import { excelRoutes } from "./module/excel";
 import { webRtcRoutes } from "./module/webRtc";
+import { getOverview } from "@/api/overview";
 
-const Dashbard = lazy(() => import("@/views/dashboard/Dashboard"));
+const Dashboard = lazy(() => import("@/views/dashboard/Dashboard"));
 
 const routes: RouteObject[] = [
   {
@@ -24,15 +25,15 @@ const routes: RouteObject[] = [
       {
         path: "dashboard",
         id: "Dashboard",
-        element: <Dashbard />,
+        element: <Dashboard />,
         loader: async () => {
-          const res = await import("@/mock/dashboard.mock");
-          return res.RowCardItems;
+          const res = await getOverview();
+          return res.data;
         },
       },
       chartExampleRoutes,
       excelRoutes,
-      webRtcRoutes
+      webRtcRoutes,
     ],
   },
 ];

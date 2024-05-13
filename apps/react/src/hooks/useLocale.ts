@@ -1,4 +1,4 @@
-import { LangKey } from "@/locales/i18n";
+import { LangKey, LangTextMap } from "@packages/shared";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -6,7 +6,7 @@ export const useLocale = () => {
   const { i18n } = useTranslation();
 
   const getLocaleText = () => {
-    return i18n.language === LangKey["zh-CN"] ? "简体中文" : "English";
+    return LangTextMap[i18n.language]
   };
 
   const [localeText, setLocaleText] = useState(getLocaleText());

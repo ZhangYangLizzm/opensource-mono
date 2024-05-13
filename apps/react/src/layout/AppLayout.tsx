@@ -17,7 +17,7 @@ const AppLayout = () => {
             collapsed={collapsed}
             setCollapsed={setCollapsed}
           />
-          <Content className="p-2">
+          <Content className="p-4">
             <Suspense fallback={<Spin size="large" />}>
               <Outlet />
             </Suspense>

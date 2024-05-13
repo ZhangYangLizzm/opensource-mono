@@ -5,5 +5,6 @@
   "arrowParens": "always",
   "trailingComma": "all",
   "bracketSpacing": true,
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "useTabs": false
 }

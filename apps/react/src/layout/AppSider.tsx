@@ -5,6 +5,7 @@ import { Menu } from "antd";
 import reactIcon from "@/assets/react.svg";
 import { MenuRouteConfigStruct } from "@/config/menuRouteConfig";
 import { Link } from "react-router-dom";
+import { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
 const Logo = ({ collapsed }: { collapsed: boolean }) => {
   return (
     <div className="flex gap-2 justify-center items-center h-16">
@@ -18,10 +19,10 @@ const Logo = ({ collapsed }: { collapsed: boolean }) => {
   );
 };
 
-export const generateMenuItems: any = (
+const generateMenuItems = (
   routes: MenuRouteConfigStruct[],
   parentPath?: string,
-) => {
+): ItemType<MenuItemType>[] => {
   return routes.map((item) => {
     if (item.type === "menuGroup") {
       return {
