@@ -4,7 +4,7 @@ import {
   AlipayCircleOutlined,
 } from "@ant-design/icons";
 
-const Channels = [
+export const Channels = [
   {
     icon: <WechatOutlined className="text-green-600" />,
     desc: "Wechat",
@@ -18,5 +18,3 @@ const Channels = [
     desc: "Alipay",
   },
 ];
-
-export { Channels };

@@ -1,13 +1,13 @@
 import { ConfigProvider } from "antd";
 import { useState } from "react";
-import LoginForm from "./LoginForm";
-import SignUpForm from "./SignUpForm";
 import { Status } from "./status";
 import { useScreen } from "@/hooks/useScreen";
-import { SignUpTip, LoginTip } from "./Tip";
+import LoginForm from "./components/LoginForm";
+import SignUpForm from "./components/SignUpForm";
+import { SignUpTip, LoginTip } from "./components/Tip";
 
 const Login = () => {
-  const [status, setStatus] = useState(Status.Login);
+  const [status, setStatus] = useState<Status>(Status.Login);
 
   const isLoginForm = status === Status.Login;
 

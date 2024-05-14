@@ -1,11 +1,12 @@
-import axios, { AxiosResponse } from "axios";
+import { createAxios } from "@packages/shared";
 
-const request = axios.create();
-request.interceptors.response.use((res: AxiosResponse) => {
-  return res.data;
-});
+const { request } = createAxios("/api/overview");
 
-export const getOverview = () => axios.get("/api/overview");
+export const getOverviewInfo = () =>
+  request({
+    url: "",
+  });
 
-export const getOverviewItem = (id: number) =>
-  axios.get(`/api/overview?id=${id}`);
+export const getOverviewItemInfo = (
+  id: number,
+): Promise<{ statusCode: number; content: any }> => request(`info?id=${id}`);

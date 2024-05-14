@@ -1,15 +1,15 @@
-import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouteObject } from "react-router-dom";
 import { lazy } from "react";
 
 import AppLayout from "@/layout/AppLayout";
-import Login from "@/views/login/Login";
 
 import { chartExampleRoutes } from "./module/chartExample";
 import { excelRoutes } from "./module/excel";
 import { webRtcRoutes } from "./module/webRtc";
-import { getOverview } from "@/api/overview";
+import { getOverviewInfo } from "@/api/overview";
+import Login from "@/views/user/Login";
 
-const Dashboard = lazy(() => import("@/views/dashboard/Dashboard"));
+const Overview = lazy(() => import("@/views/overview/Overview"));
 
 const routes: RouteObject[] = [
   {
@@ -23,18 +23,22 @@ const routes: RouteObject[] = [
     id: "AppLayout",
     children: [
       {
-        path: "dashboard",
-        id: "Dashboard",
-        element: <Dashboard />,
+        path: "overview",
+        id: "Overview",
+        element: <Overview />,
         loader: async () => {
-          const res = await getOverview();
-          return res.data;
+          const res = await getOverviewInfo();
+          return res.content;
         },
       },
       chartExampleRoutes,
       excelRoutes,
       webRtcRoutes,
     ],
+  },
+  {
+    path: "/:catchAll(.*)",
+    element: <Navigate to="/overview" />,
   },
 ];
 

@@ -1,4 +1,4 @@
-import Login from "@/views/login/Login";
+import Login from "@/views/user/Login";
 
 export const userRoutes = [
   {

@@ -1,4 +1,4 @@
-import { Status, StatusSetter } from "./status";
+import { StatusSetter, Status } from "../status";
 
 interface TipProps extends StatusSetter {
   title: string;

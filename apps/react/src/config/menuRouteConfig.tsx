@@ -20,9 +20,9 @@ export interface MenuRouteConfigStruct {
 export const MenuRouteConfig: MenuRouteConfigStruct[] = [
   {
     type: "link",
-    path: "dashboard",
+    path: "overview",
     icon: <DashboardOutlined />,
-    label: "Dashboard",
+    label: "Overview",
     key: "Dashbard",
   },
   {

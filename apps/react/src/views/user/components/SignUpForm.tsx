@@ -1,6 +1,6 @@
 import { Input, Checkbox, Button, Form } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { StatusSetter, Status } from "./status";
+import { Status, StatusSetter } from "../status";
 
 const SignUpForm = ({ setStatus }: StatusSetter) => {
   const [form] = useForm();

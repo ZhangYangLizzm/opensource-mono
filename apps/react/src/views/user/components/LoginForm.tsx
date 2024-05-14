@@ -1,15 +1,17 @@
 import { RememberUserStorageKey } from "@/config/storageKey";
 import { Input, Checkbox, Button, Form } from "antd";
 import { useNavigate } from "react-router-dom";
-import { Channels } from "./channel";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "@/hooks/useAuth";
 import { useLocalStorageState } from "ahooks";
+import { Channels } from "./Channel";
+import { postLogin } from "@/api/user";
 
 const LoginForm = () => {
-  const [form] = Form.useForm();
-
-  const { setIsLogin } = useAuth();
+  const [form] = Form.useForm<{
+    email: string;
+    password: string;
+    remember: boolean;
+  }>();
 
   const [_, setRemember] = useLocalStorageState(RememberUserStorageKey);
 
@@ -21,8 +23,10 @@ const LoginForm = () => {
       if (values.remember) {
         setRemember(values.remember);
       }
-      setIsLogin(true);
-      navigate("/dashboard");
+      const { statusCode } = await postLogin(values);
+      if (statusCode === 200) {
+        navigate("/overview");
+      }
     }
   };
 
@@ -63,16 +67,27 @@ const LoginForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Form.Item noStyle name="remember" valuePropName="checked">
+          <Form.Item
+            noStyle
+            name="remember"
+            valuePropName="checked"
+          >
             <Checkbox>{t("iDcdFRtkq7nT-BdoHkp4I")}</Checkbox>
           </Form.Item>
-          <a href="#" className="float-right">
+          <a
+            href="#"
+            className="float-right"
+          >
             {t("iLO0Si0mxlgDQTQa9aUoK")}
           </a>
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" block onClick={() => onLogin()}>
+          <Button
+            type="primary"
+            block
+            onClick={() => onLogin()}
+          >
             {t("a_ZCseNIXj9Trqyr62EtL")}
           </Button>
         </Form.Item>
