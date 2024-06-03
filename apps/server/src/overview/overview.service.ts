@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { OverviewInfo, OverviewItemInfo } from './overview.mock';
-import { OverviewItemInterface } from './interfaces/overview.interface';
+import { OverviewInfoInterface } from './interfaces/overview.interface';
 
 @Injectable()
 export class OverviewService {
-  getOverview(): OverviewItemInterface[] {
+  getOverview(): OverviewInfoInterface {
     return OverviewInfo;
   }
 

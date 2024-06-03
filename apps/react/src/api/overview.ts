@@ -1,8 +1,15 @@
+import router from "@/router/router";
 import { createAxios } from "@packages/shared";
 
-const { request } = createAxios("/api/overview");
+const { request } = createAxios("/api/overview", {
+  responseInterceptor(response) {
+    if (response.data.statusCode === 401) {
+      router.navigate("/login");
+    }
+  },
+});
 
-export const getOverviewInfo = () =>
+export const getOverviewInfo = (): IPromise =>
   request({
     url: "",
   });

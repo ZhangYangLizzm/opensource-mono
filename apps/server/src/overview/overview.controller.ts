@@ -18,7 +18,7 @@ export class OverviewController {
     });
   }
 
-  @Get('info')
+  @Get(':id')
   getItem(@Query('id') id: string, @Res() res: Response) {
     const idSchema = z.number();
     const _id = idSchema.parse(Number(id));

@@ -23,8 +23,8 @@ export const OverviewItem = ({
           src={`/images/home/${srcPath}.png`}
           className="w-16"
         />
-        <div className="flex flex-col gap-4 flex-grow">
-          <p className="leading-none font-bold">{title}</p>
+        <div className="flex-grow">
+          <p className="leading-none font-bold text-lg">{title}</p>
           <p className="tracking-wider ">{description}</p>
         </div>
       </div>

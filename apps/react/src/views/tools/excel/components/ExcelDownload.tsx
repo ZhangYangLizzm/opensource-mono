@@ -1,7 +1,7 @@
 import { Button, Input, message, Space } from "antd";
 import { useState } from "react";
 import Excel from "exceljs";
-import { downloadUtil } from "@packages/shared/downloadUtil";
+import { downloadUtil } from "@packages/shared";
 import { columns, ExcelDataStruct } from "../excelType";
 interface ExcelDownloadProps {
   dataSource: ExcelDataStruct[];

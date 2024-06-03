@@ -6,8 +6,7 @@ import { useRequest } from "ahooks";
 import { getOverviewItemInfo } from "@/api/overview";
 import { Spin } from "antd";
 import { OverviewItem } from "./components/OverviewItem";
-import { defaultOptions } from "./overview";
-import React from "react";
+import { defaultOptions } from "./overview.option";
 
 const Overview = () => {
   const loaderData = useLoaderData() as OverviewType[];
@@ -45,7 +44,7 @@ const Overview = () => {
             description={value}
             onClick={() => setCurrentId(id)}
             key={id}
-            className={`${id === currentId ? "shadow-lg" : ""}`}
+            className={`${id === currentId ? "shadow" : ""}`}
           />
         ))}
       </div>

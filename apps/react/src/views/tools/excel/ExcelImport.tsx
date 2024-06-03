@@ -4,7 +4,7 @@ import { Workbook } from "exceljs";
 import { RcFile } from "antd/es/upload";
 import { useState } from "react";
 import ExcelTable from "./components/ExcelTable";
-import { readBlob, ReadMode } from "@packages/shared/readBlobUtil";
+import { readBlob, ReadMode } from "@packages/shared";
 import { useTranslation } from "react-i18next";
 
 const getDraggerProps = (

@@ -1,29 +1,32 @@
-import { OverviewItemInterface } from './interfaces/overview.interface';
+import {
+  OverviewItemInfoInterface,
+  OverviewInfoInterface,
+} from './interfaces/overview.interface';
 
-export const OverviewInfo: OverviewItemInterface[] = [
+export const OverviewInfo: OverviewInfoInterface = [
   {
     id: 0,
-    name: '访客数',
+    name: 'visits',
     value: 102400,
   },
   {
     id: 1,
-    name: '咨询数',
+    name: 'enquiries',
     value: 81212,
   },
   {
     id: 2,
-    name: '订单数',
+    name: 'orders',
     value: 9280,
   },
   {
     id: 3,
-    name: '页面访问量',
+    name: 'views',
     value: 213540,
   },
 ];
 
-export const OverviewItemInfo = [
+export const OverviewItemInfo: OverviewItemInfoInterface[] = [
   {
     id: 0,
     xAxis: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useLocalStorageState } from "ahooks";
 import { Channels } from "./Channel";
 import { postLogin } from "@/api/user";
+import { TokenUtil } from "@packages/shared";
 
 const LoginForm = () => {
   const [form] = Form.useForm<{
@@ -23,8 +24,9 @@ const LoginForm = () => {
       if (values.remember) {
         setRemember(values.remember);
       }
-      const { statusCode } = await postLogin(values);
+      const { statusCode, content } = await postLogin(values);
       if (statusCode === 200) {
+        TokenUtil.setToken(content.access_token);
         navigate("/overview");
       }
     }

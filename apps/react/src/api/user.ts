@@ -5,11 +5,7 @@ const { request } = createAxios("/api/auth");
 export const postLogin = (data: {
   email: string;
   password: string;
-}): Promise<{
-  statusCode: number;
-  content: { access_token: string };
-  message: string;
-}> =>
+}): IPromise<{ access_token: string }> =>
   request({
     url: "/login",
     method: "POST",

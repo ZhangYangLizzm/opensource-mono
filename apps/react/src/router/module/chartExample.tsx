@@ -1,3 +1,8 @@
+import {
+  getBarChartData,
+  getDotChartData,
+  getPieChartData,
+} from "@/api/charts";
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
@@ -13,20 +18,26 @@ export const chartExampleRoutes: RouteObject = {
       element: <BarChart />,
       id: "BarChart",
       loader: async () => {
-        return (await import("@/mock/charts/barChart.mock")).data;
+        const data = await getBarChartData();
+        return data.content;
       },
     },
     {
       path: "pie-chart",
       element: <PieChart />,
       loader: async () => {
-        return (await import("@/mock/charts/pieChart.mock")).data;
+        const data = await getPieChartData();
+        return data.content;
       },
       id: "PieChart",
     },
     {
       path: "dot-chart",
       element: <DotChart />,
+      loader: async () => {
+        const data = await getDotChartData();
+        return data.content;
+      },
       id: "DotChart",
     },
   ],

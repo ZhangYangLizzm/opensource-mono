@@ -17,8 +17,8 @@ import { Response } from 'express';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @HttpCode(HttpStatus.OK)
   @Public()
+  @HttpCode(HttpStatus.OK)
   @Post('login')
   async signIn(@Body() signInDto: SignInDto, @Res() res: Response) {
     const token = await this.authService.signIn(

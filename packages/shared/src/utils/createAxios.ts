@@ -1,7 +1,18 @@
-import axios, { CreateAxiosDefaults } from "axios";
+import axios, {
+  AxiosResponse,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { stringify } from "qs";
+import { TokenUtil } from "./tokenUtil";
 
-export const createAxios = (baseURL: string) => {
+export const createAxios = (
+  baseURL: string,
+  interceptor?: {
+    requestInterceptor?: (config: InternalAxiosRequestConfig) => any;
+    responseInterceptor?: (response: AxiosResponse) => any;
+  },
+) => {
   const config: CreateAxiosDefaults = {
     baseURL: baseURL || "/",
     timeout: 6000,
@@ -17,21 +28,20 @@ export const createAxios = (baseURL: string) => {
   const request = axios.create(config);
 
   request.interceptors.request.use((config) => {
-    const accessToken = localStorage.getItem("access_token");
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    interceptor?.requestInterceptor?.(config);
+
+    const token = TokenUtil.getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   });
 
   request.interceptors.response.use((response) => {
+    interceptor?.responseInterceptor?.(response);
+
     const responseData = response.data;
-    if (responseData.content["access_token"]) {
-      localStorage.setItem(
-        "access_token",
-        responseData.content["access_token"],
-      );
-    }
+
     return responseData;
   });
 
